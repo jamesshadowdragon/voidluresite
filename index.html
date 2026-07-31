@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoidLure · premium beaming server</title>
+    <!-- Font Awesome (free icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0a;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #eaeaea;
+            line-height: 1.5;
+            padding: 0 1rem;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1.5rem 0 4rem;
+        }
+
+        /* ---------- utility ---------- */
+        .badge {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #d0d0d0;
+            padding: 0.25rem 1rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            display: inline-block;
+        }
+
+        .badge-new {
+            background: #2a2a2a;
+            border: 1px solid #888;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, #f5f5f5, #777777);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-sub {
+            color: #a0a0a0;
+            font-size: 1.15rem;
+            max-width: 600px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .card {
+            background: #141414;
+            border-radius: 28px;
+            padding: 2rem 1.8rem;
+            border: 1px solid #2a2a2a;
+            transition: all 0.15s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .card:hover {
+            border-color: #888;
+            background: #1a1a1a;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #ffffff;
+            color: #0a0a0a;
+            font-weight: 600;
+            padding: 0.8rem 2.2rem;
+            border-radius: 60px;
+            text-decoration: none;
+            border: none;
+            font-size: 1rem;
+            transition: 0.2s;
+            box-shadow: 0 4px 14px rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid #888;
+            box-shadow: none;
+            color: #d0d0d0;
+        }
+
+        .btn-outline:hover {
+            background: #ffffff;
+            color: #0a0a0a;
+            border-color: #ffffff;
+        }
+
+        .btn:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1.5rem;
+            font-size: 0.85rem;
+        }
+
+        /* ---------- header / nav ---------- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0 2rem;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #ffffff, #888888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo i {
+            margin-right: 8px;
+            color: #ffffff;
+            -webkit-text-fill-color: #ffffff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .nav-links a {
+            color: #b0b0b0;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        .discord-btn {
+            background: #5865f2;
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            color: #fff !important;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .discord-btn i {
+            font-size: 1.2rem;
+        }
+
+        /* ---------- hero ---------- */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 2rem 0 4rem;
+        }
+
+        .hero-badge {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            padding: 0.5rem 1.8rem;
+            border-radius: 60px;
+            font-size: 0.9rem;
+            color: #c0c0c0;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            background: linear-gradient(160deg, #ffffff, #777777);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: #b0b0b0;
+            max-width: 650px;
+            margin: 1.5rem 0 2.5rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 4rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-number {
+            font-size: 2.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff, #aaaaaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: #888;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* ---------- sites grid (premium) ---------- */
+        .sites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0 1rem;
+        }
+
+        .site-card {
+            background: #111;
+            padding: 1.5rem;
+            border-radius: 24px;
+            border: 1px solid #2a2a2a;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            transition: 0.15s;
+            text-decoration: none;
+            color: #e0e0e0;
+        }
+
+        .site-card:hover {
+            border-color: #888;
+            background: #1a1a1a;
+            transform: translateY(-3px);
+        }
+
+        .site-card .site-name {
+            font-weight: 700;
+            font-size: 1.3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .site-card .site-name span:first-child {
+            background: linear-gradient(135deg, #f0f0f0, #aaaaaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .status-badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-block;
+        }
+
+        .status-online {
+            background: #1f3a2a;
+            color: #6fcf97;
+            border: 1px solid #2d5a3d;
+        }
+
+        .status-offline {
+            background: #3a1f1f;
+            color: #cf6f6f;
+            border: 1px solid #5a2d2d;
+        }
+
+        .badge-tag {
+            background: #2a2a2a;
+            color: #ccc;
+            font-size: 0.65rem;
+            padding: 0.15rem 0.6rem;
+            border-radius: 20px;
+            border: 1px solid #444;
+            white-space: nowrap;
+        }
+
+        .badge-tag.best {
+            border-color: #888;
+            color: #fff;
+            background: #222;
+        }
+
+        .site-card .btn-visit {
+            margin-top: 0.25rem;
+            align-self: flex-start;
+            background: transparent;
+            border: 1px solid #555;
+            color: #d0d0d0;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .site-card .btn-visit:hover {
+            background: #ffffff;
+            color: #0a0a0a;
+            border-color: #ffffff;
+        }
+
+        .site-card .site-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        /* ---------- features grid ---------- */
+        .feature-icon {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #f0f0f0, #888888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #f0f0f0, #aaaaaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .feature-desc {
+            color: #999;
+            font-size: 0.95rem;
+        }
+
+        /* ---------- steps ---------- */
+        .step-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #ffffff, #888888);
+            color: #0a0a0a;
+            font-weight: 700;
+            width: 36px;
+            height: 36px;
+            text-align: center;
+            line-height: 36px;
+            border-radius: 40px;
+            margin-bottom: 1rem;
+        }
+
+        .step-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #f0f0f0, #aaaaaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ---------- testimonials ---------- */
+        .testimonial-card {
+            background: #111;
+            border-radius: 24px;
+            padding: 1.8rem;
+            border: 1px solid #2a2a2a;
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            color: #d0d0d0;
+            margin-bottom: 1.2rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            background: linear-gradient(135deg, #f0f0f0, #aaaaaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .testimonial-role {
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        .stars {
+            color: #fbbf24;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ---------- brands / trusted ---------- */
+        .brand-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 3rem 5rem;
+            padding: 2rem 0 1rem;
+            opacity: 0.6;
+            font-weight: 600;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            color: #b0b0b0;
+        }
+
+        .brand-grid span {
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #d0d0d0, #666666);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ---------- FAQ ---------- */
+        .faq-item {
+            border-bottom: 1px solid #2a2a2a;
+            padding: 1.5rem 0;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            font-size: 1.15rem;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #e0e0e0, #aaaaaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .faq-answer {
+            color: #999;
+        }
+
+        /* ---------- footer / CTA ---------- */
+        .cta-section {
+            background: #111;
+            border-radius: 40px;
+            padding: 3rem 2.5rem;
+            text-align: center;
+            border: 1px solid #2a2a2a;
+            margin-top: 2rem;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff, #888888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cta-section .btn {
+            margin-top: 1.5rem;
+        }
+
+        /* ---------- responsive ---------- */
+        @media (max-width: 900px) {
+            .grid-3 {
+                grid-template-columns: 1fr 1fr;
+            }
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 3rem;
+            }
+            .nav-links {
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            .hero-stats {
+                gap: 2rem;
+            }
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            .sites-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo"><i class="fas fa-circle-notch"></i>VoidLure</div>
+        <div class="nav-links">
+            <a href="#">Sites</a>
+            <a href="#">Features</a>
+            <a href="#">Reviews</a>
+            <a href="https://discord.gg/3MD46Af4tD" class="discord-btn"><i class="fab fa-discord"></i> Discord</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-badge"><i class="fas fa-bolt" style="margin-right: 8px;"></i> #1 BEAMING SERVER</div>
+        <h1>VoidLure</h1>
+        <p>The best beaming server with premium non-hooked sites. Join thousands of satisfied users and experience the difference.</p>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+            <a href="https://discord.gg/3MD46Af4tD" class="btn"><i class="fab fa-discord" style="margin-right: 8px;"></i> Join Discord</a>
+            <a href="#" class="btn btn-outline">Browse Sites</a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat-item"><span class="stat-number">1,716+</span><span class="stat-label">Members</span></div>
+            <div class="stat-item"><span class="stat-number">6</span><span class="stat-label">Premium Sites</span></div>
+            <div class="stat-item"><span class="stat-number">84%</span><span class="stat-label">Uptime</span></div>
+        </div>
+    </section>
+
+    <!-- Premium Sites -->
+    <section style="margin: 4rem 0 3rem;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; margin-bottom: 2rem;">
+            <div>
+                <span class="badge">PREMIUM SITES</span>
+                <h2 class="section-title">Our Beaming Sites</h2>
+                <p class="section-sub">All sites are verified and monitored for uptime.</p>
+            </div>
+        </div>
+
+        <!-- Site cards with clickable buttons -->
+        <div class="sites-grid">
+            <!-- INJURIES -->
+            <div class="site-card">
+                <div class="site-name">
+                    <span>INJURIES</span>
+                    <span class="badge-tag best">BEST</span>
+                </div>
+                <div class="site-meta">
+                    <span class="status-badge status-online"><i class="fas fa-circle" style="font-size: 0.5rem; margin-right: 4px;"></i> Online</span>
+                </div>
+                <a href="https://www.logged.tg/auth/voidlure" target="_blank" class="btn-visit"><i class="fas fa-arrow-right"></i> Visit Site</a>
+            </div>
+
+            <!-- SPLUNK -->
+            <div class="site-card">
+                <div class="site-name">
+                    <span>SPLUNK</span>
+                    <span class="badge-tag">2ND BEST</span>
+                </div>
+                <div class="site-meta">
+                    <span class="status-badge status-online"><i class="fas fa-circle" style="font-size: 0.5rem; margin-right: 4px;"></i> Online</span>
+                </div>
+                <a href="https://app.beamers.si/u/Voidlure" target="_blank" class="btn-visit"><i class="fas fa-arrow-right"></i> Visit Site</a>
+            </div>
+
+            <!-- IMMORTAL -->
+            <div class="site-card">
+                <div class="site-name">
+                    <span>IMMORTAL</span>
+                    <span class="badge-tag">3RD BEST</span>
+                </div>
+                <div class="site-meta">
+                    <span class="status-badge status-online"><i class="fas fa-circle" style="font-size: 0.5rem; margin-right: 4px;"></i> Online</span>
+                </div>
+                <a href="https://immortal.st/?code=NTY2OTAwNzU0NzY0NDkzNjM0" target="_blank" class="btn-visit"><i class="fas fa-arrow-right"></i> Visit Site</a>
+            </div>
+
+            <!-- SHOCKIFY -->
+            <div class="site-card">
+                <div class="site-name">
+                    <span>SHOCKIFY</span>
+                    <span class="badge-tag">4TH BEST</span>
+                </div>
+                <div class="site-meta">
+                    <span class="status-badge status-online"><i class="fas fa-circle" style="font-size: 0.5rem; margin-right: 4px;"></i> Online</span>
+                </div>
+                <a href="https://shockify.st/?code=MzM3NDE5MTE2NzE4NDg5MDMyOV81NjY5MDA3NTQ3NjQ0OTM2MzQ=" target="_blank" class="btn-visit"><i class="fas fa-arrow-right"></i> Visit Site</a>
+            </div>
+
+            <!-- HYPERLINK (new) -->
+            <div class="site-card" style="opacity: 0.85;">
+                <div class="site-name">
+                    <span>HYPERLINK</span>
+                    <span class="badge-tag" style="background: #2a2a2a; border-color: #888;">NEW!</span>
+                </div>
+                <div class="site-meta">
+                    <span class="badge-tag" style="border-color: #666;">BEST HYPERLINK SITE!</span>
+                    <span class="status-badge status-online"><i class="fas fa-circle" style="font-size: 0.5rem; margin-right: 4px;"></i> Online</span>
+                </div>
+                <span class="btn-visit" style="opacity: 0.5; cursor: default;"><i class="fas fa-link"></i> Coming soon</span>
+            </div>
+
+            <!-- COOKIE BYPASSER (offline, reworked) -->
+            <div class="site-card" style="opacity: 0.7;">
+                <div class="site-name">
+                    <span>COOKIE BYPASSER</span>
+                    <span class="badge-tag" style="background: #2a2a2a; border-color: #888;">BEST BYPASSER!</span>
+                </div>
+                <div class="site-meta">
+                    <span class="badge-tag" style="border-color: #555;">(reworked)</span>
+                    <span class="status-badge status-offline"><i class="fas fa-circle" style="font-size: 0.5rem; margin-right: 4px;"></i> Offline</span>
+                </div>
+                <span class="btn-visit" style="opacity: 0.4; cursor: default;"><i class="fas fa-wrench"></i> Under maintenance</span>
+            </div>
+
+            <!-- URL SHORTENER (NEW) -->
+            <div class="site-card">
+                <div class="site-name">
+                    <span>URL SHORTENER</span>
+                    <span class="badge-tag" style="background: #2a2a2a; border-color: #888;">VOIDLURE</span>
+                </div>
+                <div class="site-meta">
+                    <span class="badge-tag" style="border-color: #666;">password protected</span>
+                    <span class="status-badge status-online"><i class="fas fa-circle" style="font-size: 0.5rem; margin-right: 4px;"></i> Online</span>
+                </div>
+                <a href="https://voidlureshortner.vercel.app" target="_blank" class="btn-visit"><i class="fas fa-arrow-right"></i> Shorten Link</a>
+            </div>
+
+            <!-- BYPASSER (NEW) -->
+            <div class="site-card">
+                <div class="site-name">
+                    <span>BYPASSER</span>
+                    <span class="badge-tag" style="background: #2a2a2a; border-color: #888;">RBLX</span>
+                </div>
+                <div class="site-meta">
+                    <span class="badge-tag" style="border-color: #666;">age bypass</span>
+                    <span class="status-badge status-online"><i class="fas fa-circle" style="font-size: 0.5rem; margin-right: 4px;"></i> Online</span>
+                </div>
+                <a href="https://rblxbypasser.xyz/b/voidlure" target="_blank" class="btn-visit"><i class="fas fa-arrow-right"></i> Bypass Now</a>
+            </div>
+
+            <!-- AUTO HAR (NEW) -->
+            <div class="site-card">
+                <div class="site-name">
+                    <span>AUTO HAR</span>
+                    <span class="badge-tag" style="background: #2a2a2a; border-color: #888;">NEW</span>
+                </div>
+                <div class="site-meta">
+                    <span class="badge-tag" style="border-color: #666;">bloxtools</span>
+                    <span class="status-badge status-online"><i class="fas fa-circle" style="font-size: 0.5rem; margin-right: 4px;"></i> Online</span>
+                </div>
+                <a href="https://bloxtools.fr//page/login?code=voidlure" target="_blank" class="btn-visit"><i class="fas fa-arrow-right"></i> Access Auto Har</a>
+            </div>
+        </div>
+
+        <div style="text-align: center; color: #666; margin-top: 1.2rem; font-size: 0.9rem;">
+            <i class="fas fa-sync-alt fa-spin"></i> Real-time status · updated now
+        </div>
+    </section>
+
+    <!-- Services / Why choose -->
+    <section style="margin: 5rem 0;">
+        <div style="text-align: center; margin-bottom: 3.5rem;">
+            <span class="badge">SERVICES</span>
+            <h2 class="section-title">Why Choose Us?</h2>
+            <p class="section-sub" style="margin: 0 auto;">We provide the best beaming experience with premium features and dedicated support.</p>
+        </div>
+        <div class="grid-3">
+            <div class="card"><div class="feature-icon"><i class="fas fa-crown"></i></div><div class="feature-title">Premium Sites</div><div class="feature-desc">Access to the best non-hooked beaming sites with guaranteed quality and reliability.</div></div>
+            <div class="card"><div class="feature-icon"><i class="fas fa-bolt"></i></div><div class="feature-title">Fast & Reliable</div><div class="feature-desc">Lightning fast performance with 99% uptime guarantee across all our services.</div></div>
+            <div class="card"><div class="feature-icon"><i class="fas fa-globe-asia"></i></div><div class="feature-title">Global Access</div><div class="feature-desc">Connect from anywhere in the world with our distributed network infrastructure.</div></div>
+            <div class="card"><div class="feature-icon"><i class="fas fa-shield-alt"></i></div><div class="feature-title">Secure & Safe</div><div class="feature-desc">Your security is our priority. All sites are thoroughly vetted and verified.</div></div>
+            <div class="card"><div class="feature-icon"><i class="fas fa-users"></i></div><div class="feature-title">Active Community</div><div class="feature-desc">Join thousands of members in our Discord for tips, updates, and support.</div></div>
+            <div class="card"><div class="feature-icon"><i class="fas fa-headset"></i></div><div class="feature-title">24/7 Support</div><div class="feature-desc">Get help anytime with our dedicated support team via Discord tickets.</div></div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section style="margin: 5rem 0;">
+        <div style="text-align: center; margin-bottom: 3.5rem;">
+            <span class="badge">HOW IT WORKS</span>
+            <h2 class="section-title">Get Started in 3 Easy Steps</h2>
+            <p class="section-sub" style="margin: 0 auto;">Join thousands of users who trust VoidLure for their beaming needs.</p>
+        </div>
+        <div class="grid-3">
+            <div class="card" style="text-align: center;"><div class="step-number">01</div><div class="step-title">Join Our Discord</div><div style="color: #999; margin-top: 0.5rem;">Click the Discord button and join our community server to get started.</div></div>
+            <div class="card" style="text-align: center;"><div class="step-number">02</div><div class="step-title">Browse Our Sites</div><div style="color: #999; margin-top: 0.5rem;">Explore our collection of premium non-hooked beaming sites with real-time status updates.</div></div>
+            <div class="card" style="text-align: center;"><div class="step-number">03</div><div class="step-title">Start Beaming</div><div style="color: #999; margin-top: 0.5rem;">Select your preferred site and begin your beaming experience with our reliable services.</div></div>
+        </div>
+    </section>
+
+    <!-- Features / Everything you need -->
+    <section style="margin: 5rem 0;">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <span class="badge">FEATURES</span>
+            <h2 class="section-title">Everything You Need</h2>
+            <p class="section-sub" style="margin: 0 auto;">Packed with features designed to give you the best beaming experience possible.</p>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: center; max-width: 900px; margin: 0 auto;">
+            <span class="badge" style="background: #1a1a1a; border-color: #333;">Non-hooked premium sites</span>
+            <span class="badge" style="background: #1a1a1a; border-color: #333;">Real-time status monitoring</span>
+            <span class="badge" style="background: #1a1a1a; border-color: #333;">Active Discord community</span>
+            <span class="badge" style="background: #1a1a1a; border-color: #333;">24/7 ticket support</span>
+            <span class="badge" style="background: #1a1a1a; border-color: #333;">Regular site updates</span>
+            <span class="badge" style="background: #1a1a1a; border-color: #333;">Cookie bypasser included</span>
+            <span class="badge" style="background: #1a1a1a; border-color: #333;">Multiple site options</span>
+            <span class="badge" style="background: #1a1a1a; border-color: #333;">Free access for all</span>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; margin-top: 3rem;">
+            <div style="background: #111; border-radius: 30px; padding: 1.5rem 2rem; border: 1px solid #2a2a2a; text-align: center; min-width: 150px;"><i class="fas fa-star" style="color: #fbbf24;"></i> <span style="font-weight: 600; background: linear-gradient(135deg, #e0e0e0, #aaaaaa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Top Rated</span><br><span style="color: #888; font-size: 0.9rem;">Highest rated beaming server</span></div>
+            <div style="background: #111; border-radius: 30px; padding: 1.5rem 2rem; border: 1px solid #2a2a2a; text-align: center; min-width: 150px;"><i class="fas fa-chart-line" style="color: #aaa;"></i> <span style="font-weight: 600; background: linear-gradient(135deg, #e0e0e0, #aaaaaa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Growing Fast</span><br><span style="color: #888; font-size: 0.9rem;">2000+ members and counting</span></div>
+            <div style="background: #111; border-radius: 30px; padding: 1.5rem 2rem; border: 1px solid #2a2a2a; text-align: center; min-width: 150px;"><i class="fas fa-check-circle" style="color: #4ade80;"></i> <span style="font-weight: 600; background: linear-gradient(135deg, #e0e0e0, #aaaaaa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Always Online</span><br><span style="color: #888; font-size: 0.9rem;">99% uptime across all services</span></div>
+        </div>
+        <div style="text-align: center; margin-top: 2.5rem; background: #111; padding: 1rem 2rem; border-radius: 60px; display: inline-block; margin-left: auto; margin-right: auto; width: auto; border: 1px solid #2a2a2a;">
+            <i class="fas fa-star" style="color: #fbbf24;"></i><i class="fas fa-star" style="color: #fbbf24;"></i><i class="fas fa-star" style="color: #fbbf24;"></i><i class="fas fa-star" style="color: #fbbf24;"></i><i class="fas fa-star" style="color: #fbbf24;"></i> 5.0 (800+ reviews)
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section style="margin: 5rem 0;">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <span class="badge">TESTIMONIALS</span>
+            <h2 class="section-title">What Our Members Say</h2>
+            <p class="section-sub" style="margin: 0 auto;">Join thousands of satisfied members who trust VoidLure.</p>
+        </div>
+        <div class="grid-3">
+            <div class="testimonial-card"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><div class="testimonial-text">"Best beaming server I've ever used. The sites are always online and the community is super helpful."</div><div class="testimonial-author">Alex R.</div><div class="testimonial-role">Member since 2024</div></div>
+            <div class="testimonial-card"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><div class="testimonial-text">"The support team is amazing. Got help within minutes through Discord tickets. Highly recommend!"</div><div class="testimonial-author">Jordan M.</div><div class="testimonial-role">Premium Member</div></div>
+            <div class="testimonial-card"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><div class="testimonial-text">"Non-hooked sites that actually work. This is the real deal. Been using it for months with no issues."</div><div class="testimonial-author">Chris T.</div><div class="testimonial-role">Active Member</div></div>
+            <div class="testimonial-card"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><div class="testimonial-text">"The cookie bypasser is a game changer. Everything just works perfectly. 10/10 would recommend."</div><div class="testimonial-author">Sam K.</div><div class="testimonial-role">Community Member</div></div>
+            <div class="testimonial-card"><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><div class="testimonial-text">"Finally found a reliable server with trustworthy sites. The quality is unmatched."</div><div class="testimonial-author">Taylor P.</div><div class="testimonial-role">Long-time Member</div></div>
+        </div>
+    </section>
+
+    <!-- Trusted by -->
+    <section style="margin: 4rem 0; text-align: center;">
+        <span class="badge">TRUSTED BY THE COMMUNITY</span>
+        <div class="brand-grid">
+            <span>IMMORTAL</span>
+            <span>INJURIES</span>
+            <span>SPLUNK</span>
+            <span>SHOCKIFY</span>
+            <span>VOIDLURE</span>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section style="margin: 5rem 0;">
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <span class="badge">FAQ</span>
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-sub" style="margin: 0 auto;">Got questions? We've got answers. If you can't find what you're looking for, reach out on Discord.</p>
+        </div>
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div class="faq-item"><div class="faq-question">What is VoidLure? <i class="fas fa-chevron-down" style="color: #888;"></i></div><div class="faq-answer">VoidLure is a premium beaming server with non-hooked sites, active community, and 24/7 support.</div></div>
+            <div class="faq-item"><div class="faq-question">How do I join? <i class="fas fa-chevron-down" style="color: #888;"></i></div><div class="faq-answer">Simply click the Discord button on our site and join the server. It's free and open to everyone.</div></div>
+            <div class="faq-item"><div class="faq-question">Are the sites safe? <i class="fas fa-chevron-down" style="color: #888;"></i></div><div class="faq-answer">Yes, all sites are thoroughly vetted, verified, and monitored for uptime and safety.</div></div>
+            <div class="faq-item"><div class="faq-question">Do you offer support? <i class="fas fa-chevron-down" style="color: #888;"></i></div><div class="faq-answer">We have a dedicated support team via Discord tickets, available 24/7.</div></div>
+        </div>
+        <div style="text-align: center; margin-top: 2rem;">
+            <span style="color: #888;">Still have questions? </span><a href="#" style="color: #ffffff; font-weight: 600;">Open a support ticket</a>
+        </div>
+    </section>
+
+    <!-- CTA / footer -->
+    <div class="cta-section">
+        <h2>Need Help?</h2>
+        <p style="color: #b0b0b0; font-size: 1.2rem; margin: 1rem 0;">Join our Discord for instant support and community access!</p>
+        <a href="https://discord.gg/3MD46Af4tD" class="btn"><i class="fab fa-discord"></i> Join Discord</a>
+        <div style="margin-top: 2.5rem; font-size: 0.85rem; color: #555; border-top: 1px solid #2a2a2a; padding-top: 2rem;">
+            <i class="fas fa-circle-notch" style="color: #888;"></i> VoidLure · premium beaming server
+        </div>
+    </div>
+</div>
+</body>
+</html>
